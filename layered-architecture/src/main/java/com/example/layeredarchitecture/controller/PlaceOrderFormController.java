@@ -1,5 +1,6 @@
 package com.example.layeredarchitecture.controller;
 
+import com.example.layeredarchitecture.DAO.PlaceOrderDaoImpl;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
@@ -48,6 +49,7 @@ public class PlaceOrderFormController {
     public Label lblDate;
     public Label lblTotal;
     private String orderId;
+    PlaceOrderDaoImpl placeOrderDao=new PlaceOrderDaoImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
 
@@ -93,26 +95,25 @@ public class PlaceOrderFormController {
             if (newValue != null) {
                 try {
                     /*Search Customer*/
-                    Connection connection = DBConnection.getDbConnection().getConnection();
+                  //  Connection connection = DBConnection.getDbConnection().getConnection();
                     try {
                         if (!existCustomer(newValue + "")) {
 //                            "There is no such customer associated with the id " + id
                             new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + newValue + "").show();
                         }
+                        CustomerDTO b= placeOrderDao.searchItem(newValue);
 
-                        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
-                        pstm.setString(1, newValue + "");
-                        ResultSet rst = pstm.executeQuery();
-                        rst.next();
-                        CustomerDTO customerDTO = new CustomerDTO(newValue + "", rst.getString("name"), rst.getString("address"));
+//                        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
+//                        pstm.setString(1, newValue + "");
+//                        ResultSet rst = pstm.executeQuery();
+//                        rst.next();
+//                        CustomerDTO customerDTO = new CustomerDTO(newValue + "", rst.getString("name"), rst.getString("address"));
 
-                        txtCustomerName.setText(customerDTO.getName());
+                        txtCustomerName.setText(b.getName());
                     } catch (SQLException e) {
                         new Alert(Alert.AlertType.ERROR, "Failed to find the customer " + newValue + "" + e).show();
                     }
 
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }

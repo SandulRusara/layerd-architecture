@@ -1,8 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.DAO.ItemDao;
-import com.example.layeredarchitecture.DAO.ItemDaoImpl;
-import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.DAO.custom.ItemDao;
+import com.example.layeredarchitecture.DAO.custom.impl.ItemDaoImpl;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.view.tdm.ItemTM;
 import com.jfoenix.controls.JFXButton;
@@ -75,13 +74,10 @@ public class ManageItemsFormController {
             /*Get all items*/
 
            ArrayList<ItemDTO> ss= itemDao.getAllItems();
+            System.out.println(ss);
             for (ItemDTO dto:ss) {
                 tblItems.getItems().add(new ItemTM(dto.getCode(),dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand()));
-
             }
-
-
-
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {

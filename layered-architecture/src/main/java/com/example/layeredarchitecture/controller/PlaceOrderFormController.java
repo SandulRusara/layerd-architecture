@@ -105,11 +105,11 @@ public class PlaceOrderFormController {
                     /*Search Customer*/
 
                     try {
-                        if (!customerDao.exitesCustomer(newValue + "")) {
+                        if (!customerDao.exite(newValue + "")) {
 //                            "There is no such customer associated with the id " + id
                             new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + newValue + "").show();
                         }
-                        CustomerDTO customerDTO = customerDao.searchCustomer(newValue);
+                        CustomerDTO customerDTO = customerDao.search(newValue);
 
 //                        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
 //                        pstm.setString(1, newValue + "");
@@ -139,7 +139,7 @@ public class PlaceOrderFormController {
 
                 /*Find Item*/
                 try {
-                    if (!itemDao.exitsItem(newItemCode + "")) {
+                    if (!itemDao.exite(newItemCode + "")) {
 //                        throw new NotFoundException("There is no such item associated with the id " + code);
                     }
 //                    Connection connection = DBConnection.getDbConnection().getConnection();

@@ -73,7 +73,7 @@ public class ManageItemsFormController {
         try {
             /*Get all items*/
 
-           ArrayList<ItemDTO> ss= itemDao.getAllItems();
+           ArrayList<ItemDTO> ss= itemDao.getAll();
             System.out.println(ss);
             for (ItemDTO dto:ss) {
                 tblItems.getItems().add(new ItemTM(dto.getCode(),dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand()));
@@ -133,7 +133,7 @@ public class ManageItemsFormController {
             if (!existItem(code)) {
                 new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
             }
-            boolean b = itemDao.deleteItem(code);
+            boolean b = itemDao.Delete(code);
             if (b) {
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
             tblItems.getSelectionModel().clearSelection();
@@ -181,7 +181,7 @@ public class ManageItemsFormController {
 //                pstm.setBigDecimal(3, unitPrice);
 //                pstm.setInt(4, qtyOnHand);
 //                pstm.executeUpdate();
-                boolean b = itemDao.saveItem(new ItemDTO(code, description, unitPrice, qtyOnHand));
+                boolean b = itemDao.Save(new ItemDTO(code, description, unitPrice, qtyOnHand));
                 if(b) {
                     tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
                 }
@@ -205,7 +205,7 @@ public class ManageItemsFormController {
 //                pstm.setString(4, code);
 //                pstm.executeUpdate();
                 ItemDTO itemDTO = new ItemDTO(code,description,unitPrice,qtyOnHand);
-                 boolean b=itemDao.updateItem(itemDTO);
+                 boolean b=itemDao.Update(itemDTO);
                  if(b){
                      ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
                      selectedItem.setDescription(description);
@@ -230,7 +230,7 @@ public class ManageItemsFormController {
 //        pstm.setString(1, code);
 //        return pstm.executeQuery().next();
 
-        boolean b = itemDao.exitsItem(code);
+        boolean b = itemDao.exite(code);
         return b;
     }
 

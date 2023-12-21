@@ -92,6 +92,12 @@ public class ItemDaoImpl implements ItemDao {
             return "I00-001";
         }
     }
+
+    @Override
+    public ItemDTO search(String newValue) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
     @Override
     public ItemDTO finfItem(String newItemCode) throws SQLException, ClassNotFoundException {
 //        Connection connection = DBConnection.getDbConnection().getConnection();

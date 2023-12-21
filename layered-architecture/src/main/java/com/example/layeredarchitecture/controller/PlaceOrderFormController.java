@@ -197,7 +197,7 @@ public class PlaceOrderFormController {
 //        PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
 //        pstm.setString(1, code);
 //        return pstm.executeQuery().next();
-        boolean b = itemDao.exitsItem(code);
+        boolean b = itemDao.exite(code);
         return b;
     }
 
@@ -206,7 +206,7 @@ public class PlaceOrderFormController {
 //        PreparedStatement pstm = connection.prepareStatement("SELECT id FROM Customer WHERE id=?");
 //        pstm.setString(1, id);
 //        return pstm.executeQuery().next();
-        boolean b = customerDao.exitesCustomer(id);
+        boolean b = customerDao.exite(id);
         return b;
     }
 
@@ -236,7 +236,7 @@ public class PlaceOrderFormController {
 //            while (rst.next()) {
 //                cmbCustomerId.getItems().add(rst.getString("id"));
 //            }
-            ArrayList<CustomerDTO> allCustomer = customerDao.getAllCustomer();
+            ArrayList<CustomerDTO> allCustomer = customerDao.getAll();
             for (CustomerDTO customerDTO:allCustomer) {
                 cmbCustomerId.getItems().add(customerDTO.getId());
 
@@ -258,7 +258,7 @@ public class PlaceOrderFormController {
 //            ResultSet rst = stm.executeQuery("SELECT * FROM Item");
 //            while (rst.next()) {
 //                cmbItemCode.getItems().add(rst.getString("code"));
-            ArrayList<ItemDTO> allItems = itemDao.getAllItems();
+            ArrayList<ItemDTO> allItems = itemDao.getAll();
             for (ItemDTO itemDTO:allItems) {
                 cmbItemCode.getItems().add(itemDTO.getCode());
 
@@ -377,7 +377,7 @@ public class PlaceOrderFormController {
 //            stm.setString(1, orderId);
 //            stm.setDate(2, Date.valueOf(orderDate));
 //            stm.setString(3, customerId);
-            boolean b1 = placeOrderDao.saveOder(new OrderDTO(orderId, orderDate, customerId));
+            boolean b1 = placeOrderDao.Save(new OrderDTO(orderId, orderDate, customerId));
             if(b1){
                 connection.rollback();
                 connection.setAutoCommit(true);
